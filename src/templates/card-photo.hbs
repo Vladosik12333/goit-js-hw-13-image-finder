@@ -1,6 +1,6 @@
 {{#each this}}
-<li class="photo-card" data-large-img={{this.largeImageURL}}>
-    <img src={{this.webformatURL}} alt={{this.tags}} />
+<li class="photo-card">
+    <img class="photo-card__img" src='' alt={{this.tags}} data-lazy={{this.webformatURL}} data-large-img={{this.largeImageURL}} height="360px"/>
     <div class="stats">
       <p class="stats__item">
         <i class="material__icons, material-icons">thumb_up</i>
