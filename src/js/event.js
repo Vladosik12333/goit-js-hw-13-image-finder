@@ -11,9 +11,11 @@ const modal = new basicLightbox.create('<img id="img-modal-js" src="" alt="Your 
 const refs = {
   list: document.querySelector('.gallery'),
   anhcor: document.querySelector('#anhcor'),
+  loader: document.querySelector('#loader-js'),
 };
 
 export default async function onSearch(ev) {
+  ev.preventDefault();
   const queryValue = ev.target.value.trim();
   ev.target.value = null;
 
@@ -38,9 +40,12 @@ async function callbackObserve([entry]) {
 }
 
 async function render() {
+  refs.loader.classList.remove('background-loader--hidden');
   const respond = await request.query();
+
   if (respond.hits.length === 0) {
     msgError('Произошла ошибка! Повторите пожалуйста еще раз.');
+    refs.loader.classList.add('background-loader--hidden');
     return;
   }
 
@@ -57,6 +62,7 @@ async function render() {
   msgSuccess('Запрос выполнен! Вы можете посмотреть полное изображение нажав на картинку.');
 
   observer.observe(refs.anhcor);
+  refs.loader.classList.add('background-loader--hidden');
 }
 
 function onClick(ev) {
